@@ -1,1 +1,1 @@
-# garena--checker-v2
+# garena-checker-v2
