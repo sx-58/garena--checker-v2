@@ -1,0 +1,138 @@
+:root {
+    --neon-green: #00ff66;
+    --deep-black: #0a0a0c;
+    --glass-bg: rgba(15, 15, 20, 0.95);
+    --border-glow: rgba(0, 255, 102, 0.2);
+}
+
+body {
+    background-color: var(--deep-black);
+    background-image: 
+        radial-gradient(circle at 50% 50%, rgba(0, 255, 102, 0.05) 0%, transparent 80%),
+        linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+        linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+    background-size: 100% 100%, 100% 4px, 3px 100%;
+    color: var(--neon-green);
+    font-family: 'JetBrains Mono', monospace;
+    min-height: 100dvh;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* LOCK SCREEN */
+#lock-screen {
+    position: fixed;
+    inset: 0;
+    background: var(--deep-black);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.passcode-display { display: flex; gap: 15px; margin-bottom: 50px; }
+.dot {
+    width: 12px; height: 12px;
+    border: 1px solid var(--neon-green);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+.dot.active {
+    background: var(--neon-green);
+    box-shadow: 0 0 15px var(--neon-green);
+    transform: scale(1.2);
+}
+.numpad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.num-btn {
+    width: 65px; height: 65px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; border: 1px solid rgba(0, 255, 102, 0.1);
+    background: rgba(0, 255, 102, 0.02);
+    cursor: pointer; user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* TERMINAL UI */
+.terminal-shell {
+    width: 95%; max-width: 900px;
+    background: var(--glass-bg);
+    border: 1px solid var(--border-glow);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    display: flex; flex-direction: column;
+    height: 88dvh;
+}
+
+.terminal-header {
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--border-glow);
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(0,0,0,0.3);
+}
+
+.brand-text {
+    font-family: 'Inter', sans-serif; font-weight: 900;
+    letter-spacing: -1px; font-size: 1.1rem; color: #fff;
+    display: flex; align-items: center; gap: 8px;
+}
+
+.brand-tag {
+    font-size: 9px; background: var(--neon-green); color: #000;
+    padding: 2px 5px; border-radius: 2px; font-weight: 700;
+}
+
+.stats-bar {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border-bottom: 1px solid var(--border-glow);
+    background: rgba(0,0,0,0.2);
+}
+
+.stat-item { padding: 10px 5px; text-align: center; border-right: 1px solid var(--border-glow); }
+.stat-label { display: block; font-size: 8px; color: rgba(255,255,255,0.4); text-transform: uppercase; }
+.stat-value { font-weight: 700; font-size: 13px; }
+
+.log-area {
+    flex: 1; overflow-y: auto; padding: 15px;
+    font-size: 11px; line-height: 1.5;
+    display: flex; flex-direction: column;
+}
+
+.log-entry { margin-bottom: 3px; display: flex; gap: 8px; }
+.log-time { color: rgba(255,255,255,0.2); flex-shrink: 0; font-size: 9px; }
+.log-msg { flex-grow: 1; word-break: break-all; }
+.log-msg.success { color: var(--neon-green); border-left: 2px solid var(--neon-green); padding-left: 6px; background: rgba(0, 255, 102, 0.1); font-weight: bold; }
+.log-msg.error { color: #555; }
+
+.action-footer {
+    padding: 15px; border-top: 1px solid var(--border-glow);
+    background: rgba(0,0,0,0.4); display: none; gap: 10px;
+}
+
+.btn-action {
+    background: transparent; border: 1px solid var(--neon-green);
+    color: var(--neon-green); padding: 14px; font-size: 10px;
+    font-weight: 700; text-transform: uppercase; letter-spacing: 2px;
+    width: 100%; cursor: pointer; display: flex;
+    align-items: center; justify-content: center;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.btn-action:active { background: var(--neon-green); color: #000; }
+.btn-action:disabled { opacity: 0.3; cursor: not-allowed; }
+
+.shake { animation: shake 0.4s ease-in-out; }
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+}
+
+@media (max-width: 640px) {
+    .terminal-shell { width: 98%; height: 96dvh; }
+    .num-btn { width: 55px; height: 55px; }
+}

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>TERMINAL | GARENA ELITE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Inter:wght@400;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="lock-screen">
+        <div class="brand-text mb-8">GARENA <span class="text-green-500">SYSTEM</span> <span class="brand-tag">ENCRYPTED</span></div>
+        <div class="passcode-display" id="dots-container">
+            <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+            <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+        </div>
+        <div class="numpad">
+            <button class="num-btn" onclick="addDigit('1')">1</button>
+            <button class="num-btn" onclick="addDigit('2')">2</button>
+            <button class="num-btn" onclick="addDigit('3')">3</button>
+            <button class="num-btn" onclick="addDigit('4')">4</button>
+            <button class="num-btn" onclick="addDigit('5')">5</button>
+            <button class="num-btn" onclick="addDigit('6')">6</button>
+            <button class="num-btn" onclick="addDigit('7')">7</button>
+            <button class="num-btn" onclick="addDigit('8')">8</button>
+            <button class="num-btn" onclick="addDigit('9')">9</button>
+            <div style="width: 55px"></div>
+            <button class="num-btn" onclick="addDigit('0')">0</button>
+            <button class="num-btn" onclick="clearPasscode()" style="font-size: 10px">CLR</button>
+        </div>
+    </div>
+
+    <div class="terminal-shell" id="main-ui">
+        <div class="terminal-header">
+            <div class="brand-text">GARENA <span style="color: var(--neon-green)">CHECKER</span> <span class="brand-tag">V2</span></div>
+            <div class="status-pill text-[9px] flex items-center gap-2 opacity-50">
+                <div id="online-dot" class="status-indicator"></div><span id="online-text">SYSTEM ONLINE</span>
+            </div>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stat-item"><span class="stat-label">Total</span><span id="stat-total" class="stat-value">0</span></div>
+            <div class="stat-item"><span class="stat-label">Hits</span><span id="stat-hits" class="stat-value text-green-400">0</span></div>
+            <div class="stat-item"><span class="stat-label">Failed</span><span id="stat-failed" class="stat-value text-red-900">0</span></div>
+            <div class="stat-item" style="border: none;"><span class="stat-label">Speed</span><span id="stat-speed" class="stat-value">0/s</span></div>
+        </div>
+
+        <div class="main-content flex-1 flex flex-col overflow-hidden">
+            <div id="setup-view" class="flex-1 flex flex-col items-center justify-center p-6 text-center">
+                <div class="mb-6 p-6 border border-dashed border-green-900 w-full max-w-xs rounded-lg hover:bg-green-500/5 transition-colors">
+                    <input type="file" id="fileInput" accept=".txt" class="hidden">
+                    <label for="fileInput" class="cursor-pointer block">
+                        <svg class="w-10 h-10 mx-auto mb-3 opacity-20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        <p class="text-xs font-bold tracking-widest uppercase mb-1">Upload Database</p>
+                        <p id="filename-preview" class="text-[9px] text-gray-500">FORMAT: EMAIL:PASSWORD</p>
+                    </label>
+                </div>
+                <button id="startBtn" class="btn-action max-w-xs" disabled>Initialize Sequence</button>
+            </div>
+
+            <div id="console-view" class="hidden flex-1 flex flex-col overflow-hidden">
+                <div id="log-display" class="log-area"></div>
+                <div id="finish-footer" class="action-footer">
+                    <button class="btn-action" onclick="exportHits()">EXPORTAR HITS</button>
+                    <button class="btn-action" onclick="copyHits()">COPIAR HITS</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
